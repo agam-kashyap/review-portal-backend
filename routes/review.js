@@ -1,11 +1,45 @@
 const express = require('express');
+const { ObjectId } = require('mongodb');
 const router = express.Router();
 let ReviewModel = require('../models/review.model');
-
+let Courses = require('../models/course.model');
 
 // Return all the ReviewModel as a list
+// Pass in filter: "specialisation_name"
 router.get('/', async (req, res)=>{
-    ReviewModel.find({},(err, result)=>{
+  if(req.body.filter!=null)
+  {
+    // Find the courseIDs belonging to filter
+    Courses.find({
+      'course_specialisation' : req.body.filter
+    }, 
+    (err, result)=>{
+      if(err) res.json(err);
+      console.log(result);
+      let courseIDs = [];
+      for(e in result){
+        courseIDs.push(result[e]._id);
+      }
+      console.log(courseIDs);
+      
+      ReviewModel.find({
+        'review_course': {
+          '$in': courseIDs
+        }
+      }, (err, result)=>{
+        if(err){
+          res.json(err);
+        }
+        else {
+          res.json(result);
+        }
+      })
+    })
+    
+  }
+  else 
+  {
+      ReviewModel.find({},(err, result)=>{
         if(err){
         res.json(err);
         }
@@ -13,8 +47,8 @@ router.get('/', async (req, res)=>{
         res.json(result);
         }
     });
+  }
 });
-
 
 // add a single prof: the request must contain all the field elements in key-value pairs
 router.post('/add', async (req, res)=>{

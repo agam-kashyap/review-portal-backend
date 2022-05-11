@@ -1,0 +1,43 @@
+name: selec. Backend Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+    
+permissions:
+  contents: read
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+    
+    # - name: Test
+    #   run: npm test
+
+    - name: Docker Login
+      uses: docker/login-action@v1.14.1
+      with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+    - name: Build and push
+      uses: docker/build-push-action@v2
+      id: build_push
+      with:
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/selec-frontend:latest
+          
+    - name: Image ID
+      run: echo ${{ steps.build_push.outputs.imageid }}

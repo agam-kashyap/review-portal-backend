@@ -3,25 +3,59 @@ const { ObjectId } = require('mongodb');
 const router = express.Router();
 let ReviewModel = require('../models/review.model');
 let Courses = require('../models/course.model');
+const ProfModel = require('../models/prof.model');
 
 // Return all the ReviewModel as a list
-// Pass in filter: "specialisation_name"
 router.get('/', async (req, res)=>{
-  if(req.body.filter!=null)
-  {
-    // Find the courseIDs belonging to filter
-    Courses.find({
-      'course_specialisation' : req.body.filter
-    }, 
-    (err, result)=>{
-      if(err) res.json(err);
-      console.log(result);
-      let courseIDs = [];
-      for(e in result){
-        courseIDs.push(result[e]._id);
+    ReviewModel.find({},(err, result)=>{
+      if(err){
+      res.json(err);
       }
-      console.log(courseIDs);
-      
+      else {
+      res.json(result);
+      }
+  });
+});
+
+// Get all reviews corresponding to a course
+router.get('/course/:course_name', async (req, res)=>{
+  Courses.find({
+    'course_name': req.params.course_name
+  }, 
+  (err, result)=>{
+    if(err) res.json(err);
+    let courseIDs = [];
+    for(e in result){
+      courseIDs.push(result[e]._id);
+    }
+    console.log(courseIDs);
+    
+    ReviewModel.find({
+      'review_course': {
+        '$in': courseIDs
+      }
+    }, (err, result)=>{
+      if(err){
+        res.json(err);
+      }
+      else {
+        res.json(result);
+      }
+    })
+  })
+});
+
+router.get('/prof/:profID', async (req, res)=>{
+  ProfModel.findById(req.params.profID, (err, result)=>{
+    if(err){
+      res.json(err);
+    }
+    else{
+      let courseIDs = [];
+      console.log(result);
+      for(e in result.prof_courses){
+        courseIDs.push(result.prof_courses[e]);
+      }
       ReviewModel.find({
         'review_course': {
           '$in': courseIDs
@@ -34,23 +68,10 @@ router.get('/', async (req, res)=>{
           res.json(result);
         }
       })
-    })
-    
-  }
-  else 
-  {
-      ReviewModel.find({},(err, result)=>{
-        if(err){
-        res.json(err);
-        }
-        else {
-        res.json(result);
-        }
-    });
-  }
-});
+    }
+  })
+})
 
-// add a single prof: the request must contain all the field elements in key-value pairs
 router.post('/add', async (req, res)=>{
     const review = req.body; //sent from the frontend
     const newReview = new ReviewModel(review);

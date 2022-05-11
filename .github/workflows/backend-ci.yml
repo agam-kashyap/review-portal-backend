@@ -37,7 +37,7 @@ jobs:
       id: build_push
       with:
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/selec-frontend:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/review-portal-backend:latest
           
     - name: Image ID
       run: echo ${{ steps.build_push.outputs.imageid }}

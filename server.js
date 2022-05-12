@@ -6,6 +6,8 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const mongoose = require('mongoose');
+const cookieSession = require('cookie-session');
+
 
 //-----Models--------------------------------
 const Users = require("./models/user.model");
@@ -20,6 +22,14 @@ const port = process.env.PORT || 3000;
 //-----MIDDLEWARE-----
 app.use(cors());
 app.use(express.json());
+app.use(
+  cookieSession({
+    name: "review-portal-session",
+    secret: "COOKIE_SECRET", // should use as secret environment variable
+    httpOnly: true
+  })
+);
+
 
 // get driver connection
 const uri = process.env.ATLAS_URI;

@@ -12,7 +12,7 @@ router.get('/', async (req, res)=>{
       res.json(err);
       }
       else {
-      res.json(result);
+      res.status(200).json(result);
       }
   });
 });
@@ -39,7 +39,7 @@ router.get('/course/:course_name', async (req, res)=>{
         res.json(err);
       }
       else {
-        res.json(result);
+        res.status(200).json(result);
       }
     })
   })
@@ -62,10 +62,10 @@ router.get('/prof/:profID', async (req, res)=>{
         }
       }, (err, result)=>{
         if(err){
-          res.json(err);
+          res.status(400).json(err);
         }
         else {
-          res.json(result);
+          res.status(201).json(result);
         }
       })
     }
@@ -74,10 +74,12 @@ router.get('/prof/:profID', async (req, res)=>{
 
 router.post('/add', async (req, res)=>{
     const review = req.body; //sent from the frontend
-    const newReview = new ReviewModel(review);
+    const newReview = new ReviewModel(review, (err, result)=>{
+      if(err) return res.status(400).send("Invalid Request");
+    });
     await newReview.save();
 
-    res.json(review);
+    res.status(201).json(review);
 });
 
 /*

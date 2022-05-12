@@ -9,23 +9,13 @@ require("dotenv").config({ path: "../config.env" });
 router.get('/', async (req, res)=>{
     Users.find({},(err, result)=>{
         if(err){
-        res.json(err);
+        res.status(400).json(err);
         }
         else {
-        res.json(result);
+        res.status(200).json(result);
         }
     });
 });
-
-
-// // add a user: the request must contain all the field elements in key-value pairs
-// router.post('/add', async (req, res)=>{
-//     const user = req.body; //sent from the frontend
-//     const newUser = new Users(user);
-//     await newUser.save();
-  
-//     res.json(user);
-// });
 
 router.post("/register", async (req, res)=>{
     // Our register logic starts here

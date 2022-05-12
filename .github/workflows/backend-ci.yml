@@ -23,13 +23,6 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
 
-    # Update the env file with secrets
-    - name: 'Create env file'
-      run: |
-        touch config.env
-        echo ATLAS_URI=${{ secrets.ATLAS_URI }} >> config.env
-        echo PORT=3000 >> config.env
-    
     # - name: Test
     #   run: npm test
 

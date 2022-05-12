@@ -14,7 +14,7 @@ RUN npm install
 #copy all the folder contents from local to container
 COPY . .
 
-RUN --mount=type=secret,id=ATLAS_URI &&\
+RUN --mount=type=secret,id=ATLAS_URI \
     mv config.env.example config.env &&\
     cat /run/secrets/ATLAS_URI >> config.env &&\
     pwd && ls -la 

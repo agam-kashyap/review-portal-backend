@@ -68,4 +68,9 @@ describe('Profs', ()=>{
                 })
         })
     });
+    after((done)=>{
+        Profs.deleteOne({prof_name: "GSR"}, (err) => { 
+            done();           
+         });  
+    });
 });

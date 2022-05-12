@@ -22,13 +22,6 @@ const port = process.env.PORT || 3000;
 //-----MIDDLEWARE-----
 app.use(cors());
 app.use(express.json());
-app.use(
-  cookieSession({
-    name: "review-portal-session",
-    secret: "COOKIE_SECRET", // should use as secret environment variable
-    httpOnly: true
-  })
-);
 
 
 // get driver connection

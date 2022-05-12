@@ -23,7 +23,7 @@ var corsOptions = {
   optionsSuccessStatus: 200
 }
 
-router.post("/register", cors(corsOptions), async (req, res)=>{
+router.post("/register", async (req, res)=>{
     // Our register logic starts here
     try {
         // Get user input
@@ -65,7 +65,7 @@ router.post("/register", cors(corsOptions), async (req, res)=>{
         user.token = token;
         await user.save();
         // return new user
-        res.status(201).json(user);
+        return res.status(201).json(user);
     } catch (err) {
         console.log(err);
     }

@@ -13,4 +13,4 @@
       shell: docker image rm -f agamkashyap/review-portal-backend
 
     - name: Run the new image
-      shell: docker run -d -p 3000:3000 selec-backend agamkashyap/review-portal-backend:latest
+      shell: docker run -d -p 3000:3000 --name selec-backend agamkashyap/review-portal-backend:latest

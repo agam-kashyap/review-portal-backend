@@ -12,7 +12,7 @@ npm install
 
 ## API Documentation
 
-Find the [API documentation here](https://app.swaggerhub.com/apis-docs/agam-kashyap/KnowYourProf/1.0.0#)
+Find the [API documentation here](https://app.swaggerhub.com/apis-docs/agam-kashyap/Selec/1.0.0)
 
 
 ## Launch the backend

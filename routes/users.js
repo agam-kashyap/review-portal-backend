@@ -17,7 +17,12 @@ router.get('/', async (req, res)=>{
     });
 });
 
-router.post("/register", async (req, res)=>{
+var corsOptions = {
+  origin: '52.158.131.5',
+  optionsSuccessStatus: 200
+}
+
+router.post("/register", cors(corsOptions), async (req, res)=>{
     // Our register logic starts here
     try {
         // Get user input

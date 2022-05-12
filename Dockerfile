@@ -11,6 +11,10 @@ COPY package*.json /app/
 #Run command npm install to install packages
 RUN npm install
 
+ARG ATLAS_URI
+COPY ./env-script.sh ./
+RUN ./env-script.sh
+
 #copy all the folder contents from local to container
 COPY . .
 

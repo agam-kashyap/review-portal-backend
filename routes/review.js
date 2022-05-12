@@ -82,56 +82,6 @@ router.post('/add', async (req, res)=>{
     res.status(201).json(review);
 });
 
-/*
-// Assuming we pass in all the values in the req, this code will be simplified a lot
-app.post("/addReview", async (req, res)=>{
-    // Assumption currently, we pass in the username and the course_name. If ID is passed we can
-    // directly create the review entry
-    Courses.find({course_name: 'CS606'}, (err, result)=>{
-      if(err){
-        res.json(err);
-      }
-      else {
-        // res.json(result);
-        // result will be of type [{ object }]
-        let courseId = result[0]._id;
-        Users.find({username: 'IMT2018004'}, (err, result)=>{
-          if(err){
-            res.json(err);
-          }
-          else{
-            let userId = result[0]._id;
-  
-            var review = {
-              review_user: userId,
-              review_course: courseId,
-              upvote: 10,
-              downvote: 2,
-              date: new Date(),
-              prof_rate: 5,
-              takeAgain: true,
-              quality: 7,
-              difficulty: 9,
-              grading: "strict",
-              attendance: true,
-              project: true,
-              tags: ["awesome", "wow", "great"],
-              content: "Hey THis is Lorem ipsum which is not Lorem nor ipsum"
-            };
-  
-            const newReview = new ReviewModel(review);
-            newReview.save();
-  
-            res.json(result);
-          }
-        })
-      }
-    })
-  });
-*/
-// get all reviews belonging to a certain specialisation
-
-
 module.exports = router;
 
 

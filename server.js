@@ -54,3 +54,5 @@ app.use('/profs', profsRouter);
 app.use('/review', reviewRouter);
 app.use('/users', usersRouter);
 app.use('/courses', courseRouter);
+
+module.exports = app;

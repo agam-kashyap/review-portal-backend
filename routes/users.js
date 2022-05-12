@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 let Users = require('../models/user.model');
 const bcrypt = require('bcryptjs');
+const cors = require("cors");
 const jwt = require('jsonwebtoken');
 require("dotenv").config({ path: "../config.env" });
 

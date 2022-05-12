@@ -32,7 +32,7 @@ jobs:
         echo "Printing repo contents"
         ls -la
         echo "Printing ENV contents"
-        cat .env
+        cat config.env
     
     # - name: Test
     #   run: npm test

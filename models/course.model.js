@@ -10,7 +10,7 @@ const courseSchema = new Schema({
     course_profs: [{type: Schema.Types.ObjectId, ref: 'profs'}],
     course_specialisation: {
         type: String,
-        enum: ['NC', 'AIML', 'HSS', 'DT', 'TSCD']
+        enum: ['NC', 'AIML', 'VLSI', 'DT', 'TSCD', 'GEN']
     }
 });
 

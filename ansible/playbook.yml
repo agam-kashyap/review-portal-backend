@@ -1,0 +1,16 @@
+---
+- hosts: all
+  become: true
+
+  tasks:
+    - name: Stop Container
+      shell: docker stop selec-backend
+
+    - name: Remove Container
+      shell: docker rm -f selec-backend
+
+    - name: Delete Image
+      shell: docker image rm -f agamkashyap/review-portal-backend
+
+    - name: Run the new image
+      shell: docker run -d -p 3000:3000 selec-backend agamkashyap/review-portal-backend:latest

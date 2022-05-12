@@ -20,7 +20,10 @@ require("dotenv").config({ path: "./config.env" });
 const port = process.env.PORT || 3000;
 
 //-----MIDDLEWARE-----
-app.use(cors());
+let corsOptions = {
+  origin: ["URL ALLOWED", "0.0.0.0"]
+}
+app.use(cors(corsOptions));
 app.use(express.json());
 
 

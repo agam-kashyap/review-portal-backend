@@ -26,10 +26,12 @@ jobs:
     # Update the env file with secrets
     - name: 'Create env file'
       run: |
-        touch .env
-        echo ATLAS_URI=${{ secrets.ATLAS_URI }} >> .env
-        echo PORT=9000 >> .env
-        ls
+        touch config.env
+        echo ATLAS_URI=${{ secrets.ATLAS_URI }} >> config.env
+        echo PORT=9000 >> config.env
+        echo "Printing repo contents"
+        ls -la
+        echo "Printing ENV contents"
         cat .env
     
     # - name: Test

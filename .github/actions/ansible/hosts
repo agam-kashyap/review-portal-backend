@@ -1,0 +1,5 @@
+[all:vars]
+ansible_connection=ssh
+ansible_user=reviewportal
+ansible_ssh_user=reviewportal
+ansible_python_interpreter=/usr/bin/python3.8

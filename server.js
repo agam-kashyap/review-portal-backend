@@ -21,7 +21,7 @@ const port = process.env.PORT || 3000;
 
 //-----MIDDLEWARE-----
 let corsOptions = {
-  origin: "localhost"
+  origin: "http://localhost", "http://52.158.131.5"
 }
 app.use(cors(corsOptions));
 app.use(express.json());

@@ -23,17 +23,6 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
 
-    # Update the env file with secrets
-    - name: 'Create env file'
-      run: |
-        touch config.env
-        echo ATLAS_URI=${{ secrets.ATLAS_URI }} >> config.env
-        echo PORT=3000 >> config.env
-        echo "Printing repo contents"
-        ls -la
-        echo "Printing repo contents"
-        cat config.env
-    
     # - name: Test
     #   run: npm test
 
@@ -44,16 +33,13 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
     - name: Build and push
+      uses: docker/build-push-action@v2
       id: build_push
-      env:
-          ATLAS_URI: ${{ secrets.ATLAS_URI }}
-      run: |
-          docker \ 
-            --build-arg ATLAS_URI=$ATLAS_URI
-          build .
       with:
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/review-portal-backend:latest
+          secrets: |
+            "ATLAS_URI=${{ secrets.ATLAS_URI }}"
           
     - name: Image ID
       run: echo ${{ steps.build_push.outputs.imageid }}

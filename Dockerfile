@@ -11,12 +11,13 @@ COPY package*.json /app/
 #Run command npm install to install packages
 RUN npm install
 
-ARG ATLAS_URI
-COPY ./env-script.sh ./
-RUN ./env-script.sh
-
 #copy all the folder contents from local to container
 COPY . .
+
+RUN --mount=type=secret,id=ATLAS_URI \
+    mv config.env.example config.env &&\
+    cat /run/secrets/ATLAS_URI >> config.env &&\
+    pwd && ls -la 
 
 # RUN npm test
 

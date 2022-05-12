@@ -11,7 +11,7 @@ router.get('/', async (req, res)=>{
         res.json(err);
         }
         else {
-        res.json(result);
+        res.status(200).json(result);
         }
     });
 });
@@ -20,17 +20,19 @@ router.get('/', async (req, res)=>{
 // add a single prof: the request must contain all the field elements in key-value pairs
 router.post('/add', async (req, res)=>{
     const prof = req.body; //sent from the frontend
-    const newProf = new Profs(prof);
+    const newProf = new Profs(prof, (err, result)=>{
+        if(err) return res.status(400).send("invalid Input");
+    });
     await newProf.save();
 
-    res.json(prof);
+    res.status(201).json(prof);
 });
 
 
 // get a single prof from id
 router.get('/:profID',async (req, res)=>{
     const prof = await Profs.findById(req.params.profID);
-    res.json(prof);
+    res.status(200).json(prof);
 })
 
 
@@ -77,8 +79,7 @@ router.post('/:profID/update', async (req, res)=>{
         ]
 
         Reviews.aggregate(pipeline,function(err, result){
-            console.log(result);
-            res.json(result);
+            res.status(201).json(result);
         });
     })
 })

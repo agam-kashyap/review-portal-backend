@@ -2,6 +2,8 @@
 
 > Developed as a part of CS 816 - Software Production Engineering course.
 
+![CI Badge](https://github.com/agam-kashyap/review-portal-backend/actions/workflows/backend-ci.yml/badge.svg)
+
 ## Install
 
 ```sh

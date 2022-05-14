@@ -95,10 +95,10 @@ router.post("/login", async (req, res) => {
           );
     
           // save user token
-          user.token = token;
-    
+          // user.token = token;
+          var newUser = await Users.findByIdAndUpdate(user[0]._id, {token: token});
           // user
-          return res.status(200).json(user);
+          return res.status(200).json(newUser);
         }
         return res.status(400).send("Invalid Credentials");
       } catch (err) {
